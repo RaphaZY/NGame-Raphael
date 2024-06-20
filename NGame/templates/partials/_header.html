@@ -1,0 +1,33 @@
+{% load static %}
+<header class="p-3 mb-3">
+  <nav class="navbar d-flex navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand logo" href="{% url 'index' %}">GameCatalog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+     
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <div>
+                <a class="nav-link" href="{% url 'home' %}">Home</a>  
+              </div>
+            {% if user.is_authenticated %}
+                
+            
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout <img src="{% static 'assets/img/port.png' %}" width="30" height="30" alt=""> </a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <button class="nav-link btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn" data-bs-toggle="modal" data-bs-target="#exampleModal1">Register</button>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+</header>
