@@ -9,4 +9,9 @@ urlpatterns = [
     path('add/', add_game, name='add_game'),
     path('edit/<int:game_id>/', edit_game, name='edit_game'),
     path('delete/<int:game_id>/', delete_game, name='delete_game'),
+    path('cart/', view_cart, name='view_cart'),
+    path('add_to_cart/<int:game_id>/', add_to_cart, name='add_to_cart'),
+    path('remove_from_cart/<int:item_id>/', remove_from_cart, name='remove_from_cart'),
+    path('checkout/', checkout, name='checkout'),
+    path('update_cart/<int:item_id>/', update_cart_item, name='update_cart')
 ]

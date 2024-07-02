@@ -3,6 +3,7 @@ from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import JsonResponse
 
 
 @login_required
@@ -77,3 +78,44 @@ def delete_game(request, game_id):
         messages.success(request, 'Game deletada com sucesso!')
         return redirect('home')
     return render(request, 'site/delete_game.html', {'game': game})
+
+def add_to_cart(request, game_id):
+    game = get_object_or_404(Game, id=game_id)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, game=game, quantity=1)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+    return JsonResponse({'success': 'true', 'quantity': cart_item.quantity})
+
+def remove_from_cart(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    cart_item.delete()
+    return JsonResponse({'success': 'true'})
+
+def view_cart(request):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    intems = CartItem.objects.filter(cart=cart)
+    return render(request, 'site/cart.html', {'cart': cart, 'items': intems})
+
+def update_cart_item(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id)
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'increase':
+            cart_item.quantity += 1
+        elif action == 'decrease' and cart_item.quantity > 1:
+            cart_item.quantity -= 1
+        cart_item.save()
+        return JsonResponse({'success': 'true', 'quantity': cart_item.quantity})
+
+
+def checkout(request):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        cart.delete()
+        # termina de fazer o metodo comprar aqui
+        messages.success(request, 'Compra realizada com sucesso!')
+        return redirect('index')
+    return render(request, 'site/checkout.html', {'cart': cart})

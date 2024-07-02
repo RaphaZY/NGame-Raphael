@@ -111,6 +111,7 @@
     {% block content %} 
     {% endblock %}
     <!-- Scripts -->
+    {% block script %} 
         <script src="{% static 'assets/js/jquery.min.js' %}"></script>
         <script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
         <script src="{% static 'assets/js/browser.min.js' %}"></script>
@@ -118,10 +119,12 @@
         <script src="{% static 'assets/js/util.js' %}"></script>
         <script src="{% static 'assets/js/main.js' %}"></script>
         <script src="{% static 'assets/js/scripts.js' %}"></script>
-
+    {% endblock %}  
         {% include "partials/_footer.html" %}
         {% include "partials/_register.html" %}
         {% include "partials/_login.html" %}
       
+        
+        
 	</body>
 </html>
