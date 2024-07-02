@@ -8,7 +8,10 @@
                 </a>
                 <div class="card-body">
                     <div class="d-flex" style="justify-content: space-around">
-                        <button class="btn btn-success" id="add-to-cart" data-id="{{game.games.id}}">Comprar</button>
+                        <div>
+                            <button class="btn btn-success" id="add-to-cart" data-id="{{game.games.id}}">Comprar</button>
+
+                        </div>
                         <div id="btlike2">
                         {% if user.is_authenticated %}
                             {% if game.liked %}
