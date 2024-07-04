@@ -1,28 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row">
-    <ul class="list-group">     
-    {% if items %}
-        {% for item in items %}
-        <li class="list-group-item d-flex align-items-center">
-            <img src="{{ item.game.path.url }}" alt="{{ item.game.title }}" width="60px" height="60px" class="me-3">
-            <div class="flex-grow-1">
-                <p class="card-text mb-1">{{ item.game.description }}</p>
-                <button class="btn btn-primary increase_quantity me-2" data-id="{{item.id}}">+</button>
-                <span class="quantity" data-id="{{item.id}}">{{ item.quantity }}</span>
-                <button class="btn btn-primary decrease_quantity ms-2" data-id="{{item.id}}">-</button>
-            </div>
-            <button class="btn btn-danger remove_item ms-3" data-id="{{item.id}}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                </svg>
-            </button>
-        </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    <a href="{% url 'checkout' %}" class="btn btn-success">Finalizar Compra</a>
+<div class="row d-flex justify-content-center pt-5 py-5" >
+    <div style="width: 50%; height: 90%;">
+        <ul class="list-group" >     
+        {% if items %}
+            {% for item in items %}
+            <li class="list-group-item d-flex align-items-center">
+                <img src="{{ item.game.path.url }}" alt="{{ item.game.title }}" width="30%" height="65%" class="me-3">
+                <div class="flex-grow-1">
+                    <p class="card-text mb-1">{{ item.game.description }}</p>
+                    <div class="d-flex">
+                        <button class="btn btn-primary decrease_quantity me-2" data-id="{{item.id}}">-</button>
+                        <span class="quantity" data-id="{{item.id}}">{{ item.quantity }}</span>
+                        <button class="btn btn-primary increase_quantity ms-2" data-id="{{item.id}}">+</button>
+                    </div>
+                    
+                </div>
+                <div>
+                    <button class="btn btn-danger remove_item ms-3" data-id="{{item.id}}" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                        </svg>
+                    </button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+      
+
+        {% endif %}
+        <div class="d-flex pt-5" style="justify-content: center;">
+            <a href="{% url 'checkout' %}" class="btn btn-success">Finalizar Compra</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% block script %}

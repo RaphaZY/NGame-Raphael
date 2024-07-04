@@ -102,8 +102,9 @@ def remove_from_cart(request, item_id):
 def view_cart(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
     intems = CartItem.objects.filter(cart=cart)
+    card = Game.objects.all()
     cart_count = CartItem.objects.filter(cart=cart).count() if request.user.is_authenticated else 0
-    return render(request, 'site/cart.html', {'cart': cart, 'items': intems, 'cart_count': cart_count})
+    return render(request, 'site/cart.html', {'cart': cart, "card": card, 'items': intems, 'cart_count': cart_count})
 
 def update_cart_item(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)

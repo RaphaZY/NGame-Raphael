@@ -20,6 +20,7 @@
      
         
         <style>
+            
             header{
            
             height: 100%;
@@ -36,6 +37,7 @@
 
             *{
                 font-family: 'Courier New', Courier, monospace;
+                overflow-x: hidden;
             }
             .logo{
                 font-family: Impact;
@@ -105,13 +107,20 @@
                 }
             } 
         </style>
+        {% block script %} 
+        {% endblock %}  
     </head>
 	<body>
 
     {% block content %} 
     {% endblock %}
     <!-- Scripts -->
-    {% block script %} 
+   
+        {% include "partials/_footer.html" %}
+        {% include "partials/_register.html" %}
+        {% include "partials/_login.html" %}
+      
+        
         <script src="{% static 'assets/js/jquery.min.js' %}"></script>
         <script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
         <script src="{% static 'assets/js/browser.min.js' %}"></script>
@@ -119,12 +128,5 @@
         <script src="{% static 'assets/js/util.js' %}"></script>
         <script src="{% static 'assets/js/main.js' %}"></script>
         <script src="{% static 'assets/js/scripts.js' %}"></script>
-    {% endblock %}  
-        {% include "partials/_footer.html" %}
-        {% include "partials/_register.html" %}
-        {% include "partials/_login.html" %}
-      
-        
-        
 	</body>
 </html>

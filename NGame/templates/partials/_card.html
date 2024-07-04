@@ -9,10 +9,10 @@
                 <div class="card-body">
                     <div class="d-flex" style="justify-content: space-around">
                         <div>
-                            <button class="btn btn-success" id="add-to-cart" data-id="{{game.games.id}}">Comprar</button>
-
+                            <button class="btn btn-success" id="xxx" data-id="{{game.games.id}}">Comprar</button>
                         </div>
                         <div id="btlike2">
+                    {% csrf_token %}
                         {% if user.is_authenticated %}
                             {% if game.liked %}
                                 <svg id="like2" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="red" stroke="#000" class="bi bi-heart-fill" viewBox="-1 -1 18 16" >
@@ -50,10 +50,10 @@
 <script>
     var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     document.addEventListener('DOMContentLoaded', function(){
-        var buttons = document.querySelectorAll('#add-to-cart');
+        var buttons = document.querySelectorAll('#xxx');
         buttons.forEach(function(button){
             button.addEventListener('click', function(){
-                var id = this.dataset.id;
+               var id = this.dataset.id;
                 fetch('add_to_cart/'+ id +'/', {
                     method: 'GET',
                     headers: {
@@ -63,7 +63,7 @@
                 }).then((response) => {
                     return response.json();
                 }).then((data) => {
-                    console.log(data);     
+                    console.log(data);    
             });
         });
     });
