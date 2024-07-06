@@ -101,10 +101,9 @@ def remove_from_cart(request, item_id):
 
 def view_cart(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
-    intems = CartItem.objects.filter(cart=cart)
-    card = Game.objects.all()
+    items = CartItem.objects.filter(cart=cart)
     cart_count = CartItem.objects.filter(cart=cart).count() if request.user.is_authenticated else 0
-    return render(request, 'site/cart.html', {'cart': cart, "card": card, 'items': intems, 'cart_count': cart_count})
+    return render(request, 'site/cart.html', {'cart': cart, 'items': items, 'cart_count': cart_count})
 
 def update_cart_item(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
@@ -121,9 +120,11 @@ def update_cart_item(request, item_id):
 
 def checkout(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
+    items = CartItem.objects.filter(cart=cart)
+    total_price = sum( item.quantity * item.game.price for item in items)
     if request.method == 'POST':
         cart.delete()
         # termina de fazer o metodo comprar aqui
         messages.success(request, 'Compra realizada com sucesso!')
         return redirect('index')
-    return render(request, 'site/checkout.html', {'cart': cart})
+    return render(request, 'site/checkout.html', {'cart': cart, 'total_price': total_price})
