@@ -26,6 +26,11 @@
                 </div>
             </li>
             {% endfor %}
+            <li class="list-group-item d-flex justify-content-center align-items-center">
+                <div class="d-flex py-3" style="font-size: 20px;">
+                   Total: R$<span id="total">{{ total_price }}</span>
+                </div>
+            </li>
         </ul>
 
         {% endif %}
