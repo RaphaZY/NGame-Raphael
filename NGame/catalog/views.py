@@ -100,15 +100,17 @@ def remove_from_cart(request, item_id):
     return JsonResponse({'success': 'true'})
 
 def view_cart(request):
+    total_price = 0
     cart, created = Cart.objects.get_or_create(user=request.user)
     items = CartItem.objects.filter(cart=cart)
     cart_count = CartItem.objects.filter(cart=cart).count() if request.user.is_authenticated else 0
-    total_price = sum( item.quantity * item.game.price for item in items)
+    for item in items:
+        total_price += item.price_total()
     return render(request, 'site/cart.html', {'cart': cart, 'items': items, 'cart_count': cart_count, 'total_price': total_price})
 
 def update_cart_item(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
-
+    total_price = 0
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'increase':
@@ -116,7 +118,11 @@ def update_cart_item(request, item_id):
         elif action == 'decrease' and cart_item.quantity > 1:
             cart_item.quantity -= 1
         cart_item.save()
-        return JsonResponse({'success': 'true', 'quantity': cart_item.quantity})
+        items = CartItem.objects.filter(cart=cart_item.cart)
+        for item in items:
+            total_price += item.price_total()
+
+        return JsonResponse({'success': 'true', 'quantity': cart_item.quantity, 'total_price': total_price})
 
 
 def checkout(request):

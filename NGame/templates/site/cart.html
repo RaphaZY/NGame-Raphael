@@ -66,8 +66,9 @@
                     quantityElement.innerHTML = data.quantity;
                     const price = parseFloat(button.dataset.price);
                     const priceElement = document.querySelector(`.price[data-id="${id}"]`);
-                    priceElement.innerHTML = "R$" + (price * data.quantity).toFixed(2);                     
-
+                    priceElement.innerHTML = "R$" + (price * data.quantity).toFixed(2);   
+                    const tElement = document.querySelector(`#total`); 
+                    tElement.innerHTML = data.total_price;                   
                 });
             });
         });
@@ -95,7 +96,9 @@
                     quantityElement.innerHTML = data.quantity;
                     const price = parseFloat(button.dataset.price);
                     const priceElement = document.querySelector(`.price[data-id="${id}"]`);
-                    priceElement.innerHTML = "R$" + (price * data.quantity).toFixed(2);   
+                    priceElement.innerHTML = "R$" + (price * data.quantity).toFixed(2);
+                    const tElement = document.querySelector(`#total`); 
+                    tElement.innerHTML = data.total_price;          
                 })
                 .catch((error) => {
                     console.error('Error:', error);
