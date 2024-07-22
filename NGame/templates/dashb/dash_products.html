@@ -197,7 +197,7 @@
 </svg>
 
 <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="https://getbootstrap.com/docs/5.3/examples/dashboard/#">N Game</a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">N Game</a>
 
   <ul class="navbar-nav flex-row d-md-none">
     <li class="nav-item text-nowrap">
@@ -220,12 +220,12 @@
 <div class="container-fluid">
   <div class="row">
     <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
-      <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+      <div style="height: 100%;" class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="sidebarMenuLabel">N Game</h5>
+          <h5 class="offcanvas-title" id="sidebarMenuLabel">NGame</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+        <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto"  style="height: 100%; justify-content: space-between;" >
           <ul class="nav flex-column">
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'dash' %}">
@@ -233,12 +233,14 @@
                 Dashboard
               </a>
             </li>
+            {% if request.user.is_superuser %}
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="{% url 'dash_users' %}">
                 <svg class="bi"><use xlink:href="#file-earmark"></use></svg>
                 Users
               </a>
             </li>
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="{% url 'dash_products' %}">
                 <svg class="bi"><use xlink:href="#cart"></use></svg>
@@ -264,56 +266,51 @@
               </a>
             </li>
           </ul>
-
+          {% if request.user.is_superuser %}
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Saved reports</span>
+            <span >Salvar Arquivos</span>
             <a class="link-secondary" href="#" aria-label="Add a new report">
               <svg class="bi"><use xlink:href="#plus-circle"></use></svg>
             </a>
           </h6>
           <ul class="nav flex-column mb-auto">
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <button id="criar-arquivo"  class="nav-link d-flex align-items-center gap-2" >
                 <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
-                Current month
-              </a>
+                Dados do Site
+              </button>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <button id="criar-arquivo2"  class="nav-link d-flex align-items-center gap-2" >
                 <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
-                Last quarter
-              </a>
+                Dados dos Usuarios
+              </button>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <button id="criar-arquivo3"  class="nav-link d-flex align-items-center gap-2" >
                 <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
-                Social engagement
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
-                Year-end sale
-              </a>
+                Pagamentos
+              </button>
             </li>
           </ul>
-
+          {% endif %}
           <hr class="my-3">
-
-          <ul class="nav flex-column mb-auto">
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#gear-wide-connected"></use></svg>
-                Settings
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'logout' %}">
-                <svg class="bi"><use xlink:href="#door-closed"></use></svg>
-                Sign out
-              </a>
-            </li>
-          </ul>
+          <div class="d-flex">
+            <ul class="nav flex-column mb-auto" >
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="#">
+                  <svg class="bi"><use xlink:href="#gear-wide-connected"></use></svg>
+                  Settings
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="{% url 'logout' %}">
+                  <svg class="bi"><use xlink:href="#door-closed"></use></svg>
+                  Sign out
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -338,6 +335,54 @@
   </div>
 </div>
     
+    <script>
+      document.getElementById('criar-arquivo').addEventListener('click', function() {
+          var nomeArquivo = 'Ngame_' + new Date().toISOString().slice(0, 10);
+          var conteudo = 'dados do site Ngame\n';
+
+          var blob = new Blob([conteudo], { type: 'text/plain' });
+          var url = URL.createObjectURL(blob);
+
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = nomeArquivo + '.txt';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+      });
+    </script>
+    <script>
+      document.getElementById('criar-arquivo2').addEventListener('click', function() {
+          var nomeArquivo = 'Ngame_' + new Date().toISOString().slice(0, 10);
+          var conteudo = 'dados dos usuarios do site Ngame\n';
+
+          var blob = new Blob([conteudo], { type: 'text/plain' });
+          var url = URL.createObjectURL(blob);
+
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = nomeArquivo + '.txt';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+      });
+    </script>
+    <script>
+      document.getElementById('criar-arquivo3').addEventListener('click', function() {
+          var nomeArquivo = 'Ngame_' + new Date().toISOString().slice(0, 10);
+          var conteudo = 'dados dos pagamentos do site Ngame\n';
+
+          var blob = new Blob([conteudo], { type: 'text/plain' });
+          var url = URL.createObjectURL(blob);
+
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = nomeArquivo + '.txt';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+      });
+    </script>
     <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
     <script src="{% static 'assets/js/chart.umd.js' %}" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
