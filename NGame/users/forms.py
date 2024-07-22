@@ -19,7 +19,7 @@ class LoginForm(forms.Form):
 class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'is_superuser']
     
     username = forms.CharField(
         widget=forms.TextInput(attrs={
@@ -43,5 +43,11 @@ class UserRegistrationForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',
             'placeholder': 'Confirm Password'
+        })
+    )
+    is_superuser = forms.BooleanField(
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Superuser'
         })
     )

@@ -21,7 +21,9 @@ def register_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Cadastrado com sucesso!')
-            return redirect('login')
+            if request.user.is_superuser:
+                return redirect('dash_users')
+            return redirect('index')
     return redirect('home')
 
 def logout_view(request):

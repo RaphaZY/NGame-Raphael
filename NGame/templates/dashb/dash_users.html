@@ -281,16 +281,16 @@
               </button>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <button id="criar-arquivo2"  class="nav-link d-flex align-items-center gap-2" >
                 <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
                 Dados dos Usuarios
-              </a>
+              </button>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <button id="criar-arquivo3"  class="nav-link d-flex align-items-center gap-2" >
                 <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
                 Pagamentos
-              </a>
+              </button>
             </li>
           </ul>
 
@@ -353,6 +353,38 @@
       document.getElementById('criar-arquivo').addEventListener('click', function() {
           var nomeArquivo = 'Ngame_' + new Date().toISOString().slice(0, 10);
           var conteudo = 'dados dos usuarios do site Ngame\n';
+
+          var blob = new Blob([conteudo], { type: 'text/plain' });
+          var url = URL.createObjectURL(blob);
+
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = nomeArquivo + '.txt';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+      });
+    </script>
+    <script>
+      document.getElementById('criar-arquivo2').addEventListener('click', function() {
+          var nomeArquivo = 'Ngame_' + new Date().toISOString().slice(0, 10);
+          var conteudo = 'dados dos usuarios do site Ngame\n';
+
+          var blob = new Blob([conteudo], { type: 'text/plain' });
+          var url = URL.createObjectURL(blob);
+
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = nomeArquivo + '.txt';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+      });
+    </script>
+    <script>
+      document.getElementById('criar-arquivo3').addEventListener('click', function() {
+          var nomeArquivo = 'Ngame_' + new Date().toISOString().slice(0, 10);
+          var conteudo = 'dados dos pagamentos do site Ngame\n';
 
           var blob = new Blob([conteudo], { type: 'text/plain' });
           var url = URL.createObjectURL(blob);
