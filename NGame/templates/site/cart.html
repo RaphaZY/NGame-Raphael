@@ -35,7 +35,7 @@
 
         {% endif %}
         <div class="d-flex pt-5" style="justify-content: center;">
-            <a href="{% url 'checkout' %}" class="btn btn-success">Finalizar Compra</a>
+            <a href="{% url 'checkout' user.id %}" class="btn btn-success">Finalizar Compra</a>
         </div>
     </div>
 </div>

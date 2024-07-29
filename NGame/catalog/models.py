@@ -57,4 +57,24 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f'{self.game} no {self.cart}'
+
+class compras(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    date_create = models.DateTimeField(default=datetime.now, blank =True)
+
+    def __str__(self):
+        return f'{self.user} {self.quantity}'
+
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rua = models.CharField(max_length=200)
+    numero = models.CharField(max_length=200)
+    complemento = models.CharField(max_length=200)
+    cidade = models.CharField(max_length=200)
+    estado = models.CharField(max_length=2)
+    cep = models.CharField(max_length=8)
     
+
+    def __str__(self):
+        return f'{self.user} {self.rua} {self.cidade} {self.cep}'

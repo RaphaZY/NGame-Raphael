@@ -14,7 +14,8 @@ def home(request):
     return render(request, 'site/home.html', {'games': games, 'cart_count': cart_count})
 
 def index(request):
-    user = request.user    
+    user = request.user
+    id = user.id    
     games = Game.objects.all()
     data_game = []
     cart = Cart.objects.filter(user=user).first() if user.is_authenticated else None
@@ -28,7 +29,7 @@ def index(request):
             'commented': games.user_commented(user) if user.is_authenticated else False,
             }
         )
-    return render(request, 'site/index.html', {'games': data_game, 'cart_count': cart_count})
+    return render(request, 'site/index.html', {'games': data_game, 'cart_count': cart_count, 'id': id})
 
 
 
@@ -103,10 +104,11 @@ def view_cart(request):
     total_price = 0
     cart, created = Cart.objects.get_or_create(user=request.user)
     items = CartItem.objects.filter(cart=cart)
+    user = request.user
     cart_count = CartItem.objects.filter(cart=cart).count() if request.user.is_authenticated else 0
     for item in items:
         total_price += item.price_total()
-    return render(request, 'site/cart.html', {'cart': cart, 'items': items, 'cart_count': cart_count, 'total_price': total_price})
+    return render(request, 'site/cart.html', {'cart': cart, 'items': items, 'cart_count': cart_count, 'total_price': total_price, 'user': user})
 
 def update_cart_item(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
@@ -125,13 +127,30 @@ def update_cart_item(request, item_id):
         return JsonResponse({'success': 'true', 'quantity': cart_item.quantity, 'total_price': total_price})
 
 
-def checkout(request):
+def checkout(request, id_user):
     cart, created = Cart.objects.get_or_create(user=request.user)
     items = CartItem.objects.filter(cart=cart)
     total_price = sum( item.quantity * item.game.price for item in items)
     if request.method == 'POST':
         cart.delete()
-        # termina de fazer o metodo comprar aqui
+        buy = compras.objects.create(user_id=id_user, quantity=total_price)
+        buy.save()
         messages.success(request, 'Compra realizada com sucesso!')
         return redirect('index')
     return render(request, 'site/checkout.html', {'cart': cart, 'total_price': total_price})
+
+
+@login_required
+def address(request, id_user):
+    user = User.objects.get(id=id_user)
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user_id = id_user
+            address.save()
+            messages.success(request, 'Endereço cadastrado com sucesso!')
+            return redirect('index')
+    else:
+        form = AddressForm()
+    return render(request, 'site/address.html', {'form': form})

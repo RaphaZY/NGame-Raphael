@@ -1,9 +1,9 @@
 {% load static %}
 {% for game in games %}
 
-    <div class="col-md-3 col-sm-6" style="height: 100%;">
+    <div class="col-md-3 col-sm-6 pb-2 " >
         <a data-bs-toggle="modal" data-bs-target="#card{{game.games.id}}" >
-            <div class="card " style="width: 18rem;">
+            <div class="card " style="width: 15rem;">
                 <img src="{{ game.games.path.url }}" class="card-img-top" alt="{{ game.games.title }}">
                 </a>
                 <div class="card-body">

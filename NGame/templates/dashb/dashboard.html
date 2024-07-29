@@ -197,7 +197,7 @@
 </svg>
 
 <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">N Game</a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="{% url 'index' %}">NGame</a>
 
   <ul class="navbar-nav flex-row d-md-none">
     <li class="nav-item text-nowrap">
@@ -236,7 +236,7 @@
             {% if request.user.is_superuser %}
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="{% url 'dash_users' %}">
-                <svg class="bi"><use xlink:href="#file-earmark"></use></svg>
+                <svg class="bi"><use xlink:href="#people"></use></svg>
                 Users
               </a>
             </li>
@@ -248,25 +248,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#people"></use></svg>
-                Customers
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'dash_buy' %}">
                 <svg class="bi"><use xlink:href="#graph-up"></use></svg>
-                Reports
+                Pagamentos
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'dash_address' %}">
                 <svg class="bi"><use xlink:href="#puzzle"></use></svg>
-                Integrations
+                Endereços
               </a>
-            </li>
+          </li>
           </ul>
-
+          {% if request.user.is_superuser %}
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
             <span>Salvar Arquivos</span>
             <a class="link-secondary" href="#" aria-label="Add a new report">
@@ -293,9 +287,8 @@
               </button>
             </li>
           </ul>
-
+          {% endif %}
           <hr class="my-3">
-
           <ul class="nav flex-column mb-auto">
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
@@ -313,15 +306,13 @@
         </div>
       </div>
     </div>
-
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Jogos Cadastrados</h1>
-        
-      </div>
+        <h2>Informação dos Jogos</h2>
+       
+        <h3>Total: {{ total_games }}</h3>
 
-      
-      <h2>Informação dos Jogos</h2>
+      </div>
       <div class="table-responsive small">
         <table class="table table-striped table-sm">
           <thead>
@@ -338,7 +329,7 @@
               <tr class="my-3">
                 <td class="py-2 ps-4">{{ game.id }}</td>
                 <td class="py-2 ps-4">{{ game.title }}</td>
-                <td class="py-2">{{ game.price }}</td>
+                <td class="py-2">R${{ game.price }}</td>
                 <td class="py-2">{{ game.stocked }}</td>
                 <td class="py-2">{{ game.date_create }}</td>
               </tr>
@@ -351,7 +342,7 @@
 </div>
     <script>
       document.getElementById('criar-arquivo').addEventListener('click', function() {
-          var nomeArquivo = 'Ngame_' + new Date().toISOString().slice(0, 10);
+          var nomeArquivo = 'Ngame_geral_' + new Date().toISOString().slice(0, 10);
           var conteudo = 'dados do site Ngame\n';
 
           var blob = new Blob([conteudo], { type: 'text/plain' });
@@ -367,7 +358,7 @@
     </script>
     <script>
       document.getElementById('criar-arquivo2').addEventListener('click', function() {
-          var nomeArquivo = 'Ngame_' + new Date().toISOString().slice(0, 10);
+          var nomeArquivo = 'Ngame_usuarios_' + new Date().toISOString().slice(0, 10);
           var conteudo = 'dados dos usuarios do site Ngame\n';
 
           var blob = new Blob([conteudo], { type: 'text/plain' });
@@ -383,7 +374,7 @@
     </script>
     <script>
       document.getElementById('criar-arquivo3').addEventListener('click', function() {
-          var nomeArquivo = 'Ngame_' + new Date().toISOString().slice(0, 10);
+          var nomeArquivo = 'Ngame_pagamentos_' + new Date().toISOString().slice(0, 10);
           var conteudo = 'dados dos pagamentos do site Ngame\n';
 
           var blob = new Blob([conteudo], { type: 'text/plain' });

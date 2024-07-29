@@ -1,5 +1,5 @@
 from django import forms
-from .models import Game, Comment
+from .models import Game, Comment, compras, Address
 
 class GameForm(forms.ModelForm):
     class Meta:
@@ -29,4 +29,38 @@ class CommentForm(forms.ModelForm):
         }
         widgets = {
             'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Escreva seu comentario...'}),
+        }
+
+class CompraForm(forms.Form):
+
+    class Meta:
+        model = compras
+        fields = ['quantity']
+        labels = {
+            'quantity': "Valor Total:",
+        }
+        widgets = {
+            'quantity': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantidade'}),
+        }
+
+class AddressForm(forms.ModelForm):
+    class Meta: 
+        model = Address
+        fields = ['rua', 'numero', 'complemento', 'cidade', 'estado', 'cep']
+        labels = {
+            'rua': "Rua:",
+            'numero': "Número:",
+            'complemento': "Complemento:",
+            'cidade': "Cidade:",
+            'estado': "Estado:",
+            'cep': "CEP:",
+        }
+        widgets = {
+            'rua': forms.TextInput(attrs={'class': 'form-control mb-3 mt-3 mx-1', 'placeholder': 'Rua'}),
+            'numero': forms.TextInput(attrs={'class': 'form-control mb-3 mx-1', 'placeholder': 'Número'}),
+            'complemento': forms.TextInput(attrs={'class': 'form-control mb-3 mx-1', 'placeholder': 'Complemento'}),
+            'cidade': forms.TextInput(attrs={'class': 'form-control mb-3 mx-1', 'placeholder': 'Cidade'}),
+            'estado': forms.TextInput(attrs={'class': 'form-control mb-3 mx-1', 'placeholder': 'Estado'}),
+            'cep': forms.TextInput(attrs={'class': 'form-control mb-3 mx-1', 'placeholder': 'CEP'}),
+            
         }

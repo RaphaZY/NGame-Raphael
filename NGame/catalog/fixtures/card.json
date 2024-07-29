@@ -1,0 +1,91 @@
+[
+
+    {
+        "model": "catalog.game",
+        "pk": 11,
+        "fields":{
+            "title": "Jogo 1",
+            "path": "img/2024/07/02/226.gif",
+            "description": "Jogo 1",
+            "price": 100,
+            "stocked": 12
+        }
+    },
+    {
+        "model": "catalog.game",
+        "pk": 12,
+        "fields":{
+            "title": "Jogo 2",
+            "path": "img/2024/07/26/100445.gif",
+            "description": "Jogo 2",
+            "price": 120,
+            "stocked": 190
+        }
+    },
+    {
+        "model": "catalog.game",
+        "pk": 13,
+        "fields":{
+            "title": "Jogo 3",
+            "path": "img/2024/07/26/100384.gif",
+            "description": "Jogo 3",
+            "price": 400,
+            "stocked": 1300
+        }
+    },
+    {
+        "model": "catalog.game",
+        "pk": 14,
+        "fields":{
+            "title": "Jogo 4",
+            "path": "img/2024/07/26/384.gif",
+            "description": "Jogo 4",
+            "price": 50,
+            "stocked": 130
+        }
+    },
+    {
+        "model": "catalog.game",
+        "pk": 15,
+        "fields":{
+            "title": "Jogo 5",
+            "path": "img/2024/07/26/100254.gif",
+            "description": "Jogo 5",
+            "price": 450,
+            "stocked": 25
+        }
+    },
+    {
+        "model": "catalog.game",
+        "pk": 16,
+        "fields":{
+            "title": "Jogo 6",
+            "path": "img/2024/07/26/6.gif",
+            "description": "Jogo 6",
+            "price": 1500,
+            "stocked": 33
+        }
+    },
+    {
+        "model": "catalog.game",
+        "pk": 17,
+        "fields":{
+            "title": "Jogo 7",
+            "path": "img/2024/07/26/282.gif",
+            "description": "Jogo 7",
+            "price": 500,
+            "stocked": 363
+        }
+    },
+    {
+        "model": "catalog.game",
+        "pk": 18,
+        "fields":{
+            "title": "Jogo 8",
+            "path": "img/2024/07/26/100094.gif",
+            "description": "Jogo 8",
+            "price": 79700,
+            "stocked": 783
+        }
+    }
+]

@@ -1,12 +1,12 @@
 {% load static %}
 {% for game in games %}
 
-    <div class="col-md-3 col-sm-6" style="height: 100%;">
-        <a data-bs-toggle="modal" data-bs-target="#card{{game.games.id}}" >
-            <div class="card " style="width: 18rem;">
+    <div class="col-md-3 col-sm-6 d-flex pb-2 justify-content-center">
+        <a data-bs-toggle="modal" data-bs-target="#card{{game.games.id}}" style="cursor: pointer;">
+            <div class="card " style="width: 16rem;">
                 <img src="{{ game.games.path.url }}" class="card-img-top" alt="{{ game.games.title }}">
                 </a>
-                <div class="card-body">
+                <div class="card-body ">
                     <div class="d-flex" style="justify-content: space-around">
                         <div>
                             <button class="btn btn-success" id="xxx" data-id="{{game.games.id}}">Comprar</button>
