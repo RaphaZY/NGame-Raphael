@@ -15,7 +15,6 @@ def home(request):
 
 def index(request):
     user = request.user
-    id = user.id    
     games = Game.objects.all()
     data_game = []
     cart = Cart.objects.filter(user=user).first() if user.is_authenticated else None
@@ -29,7 +28,7 @@ def index(request):
             'commented': games.user_commented(user) if user.is_authenticated else False,
             }
         )
-    return render(request, 'site/index.html', {'games': data_game, 'cart_count': cart_count, 'id': id})
+    return render(request, 'site/index.html', {'games': data_game, 'cart_count': cart_count})
 
 
 
@@ -150,7 +149,7 @@ def address(request, id_user):
             address.user_id = id_user
             address.save()
             messages.success(request, 'Endereço cadastrado com sucesso!')
-            return redirect('index')
+            return redirect('view_cart')
     else:
         form = AddressForm()
     return render(request, 'site/address.html', {'form': form})

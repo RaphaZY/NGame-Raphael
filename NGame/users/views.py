@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import LoginForm, UserRegistrationForm
+from .forms import LoginForm, UserRegistrationForm, DashUserRegistrationForm
 from django.contrib import messages
 
 def login_view(request):
@@ -15,14 +15,21 @@ def login_view(request):
                 return redirect('home')
     return redirect('home')
 
+def register_view_dash(request):
+    if request.method == 'POST':
+        form = DashUserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cadastrado com sucesso!')
+            return redirect('index')
+    return redirect('home')
+
 def register_view(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Cadastrado com sucesso!')
-            if request.user.is_superuser:
-                return redirect('dash_users')
             return redirect('index')
     return redirect('home')
 

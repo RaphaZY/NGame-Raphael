@@ -10,12 +10,7 @@
             <div>
                 <a class="nav-link" href="{% url 'home' %}">Home</a>  
             </div>
-            {% if user.is_authenticated %}
-
-            <div>
-                <a href="{% url 'address' id %}">address</a>
-            </div>
-            {% endif %}
+            
             <div>
                 <a class="nav-link position-relative" href="{% url 'view_cart' %}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
