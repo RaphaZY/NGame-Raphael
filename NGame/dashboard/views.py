@@ -17,7 +17,7 @@ def dash(request):
     
 @login_required
 def dash_users(request):
-    if request.user.is_superuser:
+    if request.user.user_type == 'admin':
         users = User.objects.all()
         total_users = users.count()
         return render(request, 'dashb/dash_users.html', {'users': users, 'total_users': total_users})
@@ -43,7 +43,7 @@ def dash_products(request):
 
 @login_required
 def dash_buy(request):
-    if request.user.is_superuser:
+    if request.user.user_type == 'admin':
         buy = compras.objects.all()
         total_buy = buy.count()
         return render(request, 'dashb/dash_buy.html', {'buy': buy, 'total_buy': total_buy})
@@ -54,7 +54,7 @@ def dash_buy(request):
    
 @login_required
 def dash_address(request):
-    if request.user.is_superuser:
+    if request.user.user_type == 'admin':
         cep = Address.objects.all()
         total_address = cep.count()
         return render(request, 'dashb/dash_address.html', {'cep': cep, 'total_address': total_address})

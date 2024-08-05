@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from .forms import *
+from users.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
@@ -19,6 +20,8 @@ def index(request):
     data_game = []
     cart = Cart.objects.filter(user=user).first() if user.is_authenticated else None
     cart_count = CartItem.objects.filter(cart=cart).count() if user.is_authenticated else 0
+    form = LoginForm
+    vorm = UserRegistrationForm
     for games in games:
         data_game.append(    
             {
@@ -28,7 +31,7 @@ def index(request):
             'commented': games.user_commented(user) if user.is_authenticated else False,
             }
         )
-    return render(request, 'site/index.html', {'games': data_game, 'cart_count': cart_count})
+    return render(request, 'site/index.html', {'games': data_game, 'cart_count': cart_count, 'form': form, 'vorm': vorm})
 
 
 
