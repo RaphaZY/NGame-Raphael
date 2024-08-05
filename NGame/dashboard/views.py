@@ -59,7 +59,6 @@ def dash_address(request):
         total_address = cep.count()
         return render(request, 'dashb/dash_address.html', {'cep': cep, 'total_address': total_address})
     else:
-        
         cep = Address.objects.filter(user_id=request.user)
         total_address = cep.count()
         return render(request, 'dashb/dash_address.html', {'cep': cep, 'total_address': total_address})
